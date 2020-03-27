@@ -1,0 +1,128 @@
+:plantuml-server-url: http://www.plantuml.com/plantuml
+
+# Ödev: Örnek bir Senaryo için UML Sınıf Şeması Hazırlayınız
+
+## Uçak Sistemi
+
+Aşağıda düşünülmüş olan şema, gerçek hayattandır ve koda dökmek için yazılmamıştır.
+
+### Kurallar
+* Association
+** Yolcu Uçağı kulenin yardımı ile kalkış yapar.
+** İnsanların bir adresi vardır.
+* Aggregation
+** Yolcu Uçağı eğlence sistemine sahip olabilir. Ancak eğlence sistemsiz de bir yolcu uçağıdır.
+* Composition
+** Her yolcu uçağının iki adet kanadı olması zorunludur.
+** Her yolcu uçağı, en az bir adet yolcu ile uçmak zorundadır.
+** Her yolcu uçağının koltukları olması zorundadır.
+** Her yolcu uçağının uçak motoru olması zorundadır.
+** Her yolcu uçağı en az 2 görevliye (pilot ve ko-pilot) ihtiyaç duyar.
+* Generalization
+** Pilot ve Hostes, bir görevlidir.
+** Kuş ve Yolcu Uçağı bir uçan nesnedir.
+* Realization
+** Pilotlar, Ana Pilot ve Yardımcı Pilot olarak ikiye ayrılır. Bu sıfatlar, pilotların yapacağı işi değiştirir.
+* Dependency
+** İnsanlar uçak görevlisi (pilot veya hostes) olmak için sertifikaya ihtiyaç duyarlar.  
+* Use
+** Her insan bir bilet ile yolcu olabilir.
+
+### Şema
+
+[plantuml, diagram-classes, png]     
+....
+@startuml
+left to right direction
+
+title Uçak Sistemi
+
+class Kuş {
+ +tip
+ +renk
+ -kanatÇırp()
+}
+
+class Kanat {
+ +şekil
+}
+
+class Kule {
+  +bildir()
+}
+
+class YolcuUçağı {
+  +durum
+  +yolcular[]
+  +kuleyeBilgiVer()
+}
+
+class Yolcu {
+  +koltukNumarasi
+  +bagajaSahip
+  +bin()
+}
+
+class İnsan {
+  +isim
+  +eşyalar[]
+  +biletAl()
+  +eğitimAl()
+  +uyu()
+  +uyan()
+}
+
+class AnaPilot {
+  +uçağıKaldır()
+  +uçağıİndir()
+}
+
+class KoPilot {
+  +bilgiVer()
+}
+
+class Pilot {
+  +durumuDenetle()
+}
+
+class Hostes {
+  +yiyecekGetir()
+}
+
+class Görevli {
+  +anonsYap()
+}
+
+class Adres {
+  -sokak
+  -mahalle
+  -şehir
+  +toString()
+}
+
+Kuş *-- "2" Kanat
+
+YolcuUçağı *-- "2" Kanat
+YolcuUçağı *-- "2..*" UçakMotoru
+YolcuUçağı *-- "1..*" Koltuk
+YolcuUçağı *-- "2..*" Görevli
+YolcuUçağı o-- EğlenceSistemi
+
+UçanNesne <|-- Kuş
+UçanNesne <|-- YolcuUçağı
+
+Görevli <|-- Hostes
+Görevli <|-- "2" Pilot
+
+Pilot <|.. AnaPilot
+Pilot <|.. KoPilot
+
+Yolcu "1..*" --* YolcuUçağı  : "<<use>>"
+İnsan <.. Yolcu : "<<bilet>>"
+İnsan <.. Görevli : "<<sertifika>>"
+
+Kule <-- YolcuUçağı
+İnsan --> Adres
+
+@enduml
+....

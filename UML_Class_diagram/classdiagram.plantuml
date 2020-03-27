@@ -1,0 +1,93 @@
+@startuml
+left to right direction
+
+title Uçak Sistemi
+
+class Kuş {
+ +tip
+ +renk
+ -kanatÇırp()
+}
+
+class Kanat {
+ +şekil
+}
+
+class Kule {
+  +bildir()
+}
+
+class YolcuUçağı {
+  +durum
+  +yolcular[]
+  +kuleyeBilgiVer()
+}
+
+class Yolcu {
+  +koltukNumarasi
+  +bagajaSahip
+  +bin()
+}
+
+class İnsan {
+  +isim
+  +eşyalar[]
+  +biletAl()
+  +eğitimAl()
+  +uyu()
+  +uyan()
+}
+
+class AnaPilot {
+  +uçağıKaldır()
+  +uçağıİndir()
+}
+
+class KoPilot {
+  +bilgiVer()
+}
+
+class Pilot {
+  +durumuDenetle()
+}
+
+class Hostes {
+  +yiyecekGetir()
+}
+
+class Görevli {
+  +anonsYap()
+}
+
+class Adres {
+  -sokak
+  -mahalle
+  -şehir
+  +toString()
+}
+
+Kuş *-- "2" Kanat
+
+YolcuUçağı *-- "2" Kanat
+YolcuUçağı *-- "2..*" UçakMotoru
+YolcuUçağı *-- "1..*" Koltuk
+YolcuUçağı *-- "2..*" Görevli
+YolcuUçağı o-- EğlenceSistemi
+
+UçanNesne <|-- Kuş
+UçanNesne <|-- YolcuUçağı
+
+Görevli <|-- Hostes
+Görevli <|-- "2" Pilot
+
+Pilot <|.. AnaPilot
+Pilot <|.. KoPilot
+
+Yolcu "1..*" --* YolcuUçağı  : "<<use>>"
+İnsan <.. Yolcu : "<<bilet>>"
+İnsan <.. Görevli : "<<sertifika>>"
+
+Kule <-- YolcuUçağı
+İnsan --> Adres
+
+@enduml
