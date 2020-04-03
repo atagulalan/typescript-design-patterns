@@ -3,11 +3,6 @@ left to right direction
 
 title Uçak Sistemi
 
-class Kuş {
- +tip
- +renk
- -kanatÇırp()
-}
 
 class Kanat {
  +şekil
@@ -23,28 +18,20 @@ class YolcuUçağı {
   +kuleyeBilgiVer()
 }
 
-class Yolcu {
-  +koltukNumarasi
-  +bagajaSahip
-  +bin()
-}
-
-class İnsan {
-  +isim
-  +eşyalar[]
-  +biletAl()
-  +eğitimAl()
-  +uyu()
-  +uyan()
+' İki pilot aynı yemekleri yemezler, bu yüzden bu fonksiyon her pilot için override edilecek. 
+interface IPilot {
+  yemekYe()
 }
 
 class AnaPilot {
   +uçağıKaldır()
   +uçağıİndir()
+  +yemekYe()
 }
 
 class KoPilot {
   +bilgiVer()
+  +yemekYe()
 }
 
 class Pilot {
@@ -59,35 +46,22 @@ class Görevli {
   +anonsYap()
 }
 
-class Adres {
-  -sokak
-  -mahalle
-  -şehir
-  +toString()
-}
-
-Kuş *-- "2" Kanat
-
-YolcuUçağı *-- "2" Kanat
-YolcuUçağı *-- "2..*" UçakMotoru
 YolcuUçağı *-- "1..*" Koltuk
-YolcuUçağı *-- "2..*" Görevli
-YolcuUçağı o-- EğlenceSistemi
+YolcuUçağı *-- "2" Kanat
+YolcuUçağı o-- "0..*" EğlenceSistemi
 
-UçanNesne <|-- Kuş
-UçanNesne <|-- YolcuUçağı
+YolcuUçağı <.. Pilot : "<<use>>"
 
-Görevli <|-- Hostes
-Görevli <|-- "2" Pilot
+IPilot <|.. KoPilot
+IPilot <|.. AnaPilot
 
-Pilot <|.. AnaPilot
-Pilot <|.. KoPilot
+AnaPilot --o Pilot
+KoPilot --o Pilot
 
-Yolcu "1..*" --* YolcuUçağı  : "<<use>>"
-İnsan <.. Yolcu : "<<bilet>>"
-İnsan <.. Görevli : "<<sertifika>>"
+Pilot --|> Görevli
+Hostes --|> Görevli
 
-Kule <-- YolcuUçağı
-İnsan --> Adres
+Kule -- YolcuUçağı
+
 
 @enduml

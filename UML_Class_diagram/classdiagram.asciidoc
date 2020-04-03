@@ -9,24 +9,20 @@ Aşağıda düşünülmüş olan şema, gerçek hayattandır ve koda dökmek iç
 ### Kurallar
 * Association
 ** Yolcu Uçağı kulenin yardımı ile kalkış yapar.
-** İnsanların bir adresi vardır.
+** Kuleler, Yolcu Uçaklarının konumlarını tutar.
 * Aggregation
 ** Yolcu Uçağı eğlence sistemine sahip olabilir. Ancak eğlence sistemsiz de bir yolcu uçağıdır.
 * Composition
 ** Her yolcu uçağının iki adet kanadı olması zorunludur.
-** Her yolcu uçağı, en az bir adet yolcu ile uçmak zorundadır.
-** Her yolcu uçağının koltukları olması zorundadır.
-** Her yolcu uçağının uçak motoru olması zorundadır.
-** Her yolcu uçağı en az 2 görevliye (pilot ve ko-pilot) ihtiyaç duyar.
+** Her yolcu uçağının en az bir adet koltuğunun olması zorunludur.
 * Generalization
 ** Pilot ve Hostes, bir görevlidir.
-** Kuş ve Yolcu Uçağı bir uçan nesnedir.
 * Realization
-** Pilotlar, Ana Pilot ve Yardımcı Pilot olarak ikiye ayrılır. Bu sıfatlar, pilotların yapacağı işi değiştirir.
+** Pilotlar, Ana Pilot ve Yardımcı Pilot olarak ikiye ayrılır. Bu sıfatlar, pilotların yiyeceği yemeği değiştirir. (Yemek zehirlenmesi olmaması için iki pilot farklı besinleri yemek zorundadır)
 * Dependency
-** İnsanlar uçak görevlisi (pilot veya hostes) olmak için sertifikaya ihtiyaç duyarlar.  
+** Yolcu Uçağı, kalkış yapabilmek için Pilot'a ihtiyaç duyar.
 * Use
-** Her insan bir bilet ile yolcu olabilir.
+** Pilot, yolcu uçağını kullanır.
 
 ### Şema
 
@@ -37,11 +33,6 @@ left to right direction
 
 title Uçak Sistemi
 
-class Kuş {
- +tip
- +renk
- -kanatÇırp()
-}
 
 class Kanat {
  +şekil
@@ -57,28 +48,20 @@ class YolcuUçağı {
   +kuleyeBilgiVer()
 }
 
-class Yolcu {
-  +koltukNumarasi
-  +bagajaSahip
-  +bin()
-}
-
-class İnsan {
-  +isim
-  +eşyalar[]
-  +biletAl()
-  +eğitimAl()
-  +uyu()
-  +uyan()
+' İki pilot aynı yemekleri yemezler, bu yüzden bu fonksiyon her pilot için override edilecek. 
+interface IPilot {
+  yemekYe()
 }
 
 class AnaPilot {
   +uçağıKaldır()
   +uçağıİndir()
+  +yemekYe()
 }
 
 class KoPilot {
   +bilgiVer()
+  +yemekYe()
 }
 
 class Pilot {
@@ -93,36 +76,23 @@ class Görevli {
   +anonsYap()
 }
 
-class Adres {
-  -sokak
-  -mahalle
-  -şehir
-  +toString()
-}
-
-Kuş *-- "2" Kanat
-
-YolcuUçağı *-- "2" Kanat
-YolcuUçağı *-- "2..*" UçakMotoru
 YolcuUçağı *-- "1..*" Koltuk
-YolcuUçağı *-- "2..*" Görevli
-YolcuUçağı o-- EğlenceSistemi
+YolcuUçağı *-- "2" Kanat
+YolcuUçağı o-- "0..*" EğlenceSistemi
 
-UçanNesne <|-- Kuş
-UçanNesne <|-- YolcuUçağı
+YolcuUçağı <.. Pilot : "<<use>>"
 
-Görevli <|-- Hostes
-Görevli <|-- "2" Pilot
+IPilot <|.. KoPilot
+IPilot <|.. AnaPilot
 
-Pilot <|.. AnaPilot
-Pilot <|.. KoPilot
+AnaPilot --o Pilot
+KoPilot --o Pilot
 
-Yolcu "1..*" --* YolcuUçağı  : "<<use>>"
-İnsan <.. Yolcu : "<<bilet>>"
-İnsan <.. Görevli : "<<sertifika>>"
+Pilot --|> Görevli
+Hostes --|> Görevli
 
-Kule <-- YolcuUçağı
-İnsan --> Adres
+Kule -- YolcuUçağı
+
 
 @enduml
 ....
