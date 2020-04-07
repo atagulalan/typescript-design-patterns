@@ -1,0 +1,32 @@
+@startuml
+left to right direction
+
+title Factory Pattern Örneği
+
+class Asi {
+  -name
+  -procedure
+  -isVaccinated
+  +Asi()
+  -getInfo()
+  -vaccinate()
+}
+
+class Maske {
+  -name
+  -percentage
+  -isWeared
+  +Maske()
+  -getInfo()
+  -wear()
+}
+
+class CovidFactory {
+  +CovidFactory
+  +produceProduct
+}
+
+CovidFactory --> Maske : <produces>
+CovidFactory --> Asi : <produces>
+
+@enduml

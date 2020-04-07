@@ -1,0 +1,16 @@
+@startuml
+left to right direction
+
+title Singleton Örneği
+
+class Singleton {
+  -{static} instance
+  -sayi
+  -Singleton()
+  +{static}getInstance()
+  +getSayi()
+}
+
+Singleton --> Singleton : instance
+
+@enduml
