@@ -4,18 +4,18 @@ left to right direction
 title Factory Pattern Örneği
 
 class Asi {
-  -name
-  -procedure
-  -isVaccinated
+  -name : String
+  -procedure : String
+  -isVaccinated : Boolean
   +Asi()
   -getInfo()
   -vaccinate()
 }
 
 class Maske {
-  -name
-  -percentage
-  -isWeared
+  -name : String
+  -percentage : Number
+  -isWeared : Boolean
   +Maske()
   -getInfo()
   -wear()
@@ -23,7 +23,7 @@ class Maske {
 
 class CovidFactory {
   +CovidFactory
-  +produceProduct
+  +produceProduct : Object
 }
 
 CovidFactory --> Maske : <produces>

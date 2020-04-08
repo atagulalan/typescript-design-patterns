@@ -4,11 +4,11 @@ left to right direction
 title Singleton Örneği
 
 class Singleton {
-  -{static} instance
-  -sayi
+  -{static} instance : Singleton
+  -sayi : Number
   -Singleton()
-  +{static}getInstance()
-  +getSayi()
+  +{static}getInstance() : Singleton
+  +getSayi() : Number
 }
 
 Singleton --> Singleton : instance
