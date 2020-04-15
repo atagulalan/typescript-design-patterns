@@ -14,7 +14,6 @@ class Prototype {
   public component: object
   public circularReference: ComponentWithBackReference
 
-  //DİKKAT: STATİKLERİ KOPYALAMAZ
   private cloneObject(what) {
     return Object.assign(Object.create(Object.getPrototypeOf(what)), what)
   }

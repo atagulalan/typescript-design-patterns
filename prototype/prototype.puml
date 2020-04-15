@@ -20,9 +20,9 @@ class ComponentWithBackReference {
   +prototype
 }
 
-Prototype --o ComponentWithBackReference
-ComponentWithBackReference --o Prototype
+Prototype --> ComponentWithBackReference
+ComponentWithBackReference --> Prototype
 
-Prototype --* Human
+Prototype --> Human
 
 @enduml

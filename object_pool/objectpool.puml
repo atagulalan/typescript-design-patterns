@@ -26,8 +26,8 @@ class Client {
 }
 
 PoolManager --> PoolManager : instance
-PoolManager "1" --o "n" Product
-PoolManager <.. Client : use
+PoolManager "1" --o "*" Product
+PoolManager <.. Client : <<use>>
 Client "1" --o "1" Product
 
 @enduml
