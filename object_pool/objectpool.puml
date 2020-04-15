@@ -1,0 +1,33 @@
+@startuml
+left to right direction
+
+title Object Pool Örneği
+
+class PoolManager {
+  -{static} instance : PoolManager
+  -pools: Array<Product>
+  -boyut: number
+  -PoolManager()
+  +{static}getInstance() : PoolManager
+  +takeObject(): Product 
+  +releaseObject()
+}
+
+class Product {
+  -name: string
+  +getName(): string
+}
+
+class Client {
+  -name: string
+  -owns: Product
+  +getName()
+  +ownProduct()
+}
+
+PoolManager --> PoolManager : instance
+PoolManager "1" --o "n" Product
+PoolManager <.. Client : use
+Client "1" --o "1" Product
+
+@enduml

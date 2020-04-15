@@ -1,0 +1,28 @@
+@startuml
+left to right direction
+
+title Prototype Pattern
+
+class Human {
+  +name: string
+}
+
+class Prototype {
+  +primitive: any
+  +component: Human
+  +circularReference: ComponentWithBackReference
+  -cloneObject()
+  +deepClone()
+  +shallowClone()
+}
+
+class ComponentWithBackReference {
+  +prototype
+}
+
+Prototype --o ComponentWithBackReference
+ComponentWithBackReference --o Prototype
+
+Prototype --* Human
+
+@enduml
