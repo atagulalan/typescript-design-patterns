@@ -1,0 +1,29 @@
+@startuml
+class ServerBuilder {
+    -name: string
+    -ipAddress: string
+    -port: number
+    -requests: Object[]
+    +Name: string
+    +setIpAddress(value: string): ServerBuilder
+    +IpAddress: string
+    +setPort(value: number): ServerBuilder
+    +Port: number
+    +post(uri: string, value: Function): ServerBuilder
+    +get(uri: string, value: Function): ServerBuilder
+    +Requests: Object[]
+    +build(afterCreation: Function): Server
+}
+class Server {
+    -name: string
+    -ipAddress: string
+    -port: number
+    -requests: Object[]
+    +Name: string
+    +IpAddress: string
+    +Port: number
+    +Requests: Object[]
+}
+
+ServerBuilder ..> Server : <<create>>
+@enduml
