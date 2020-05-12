@@ -1,0 +1,39 @@
+interface Nesne{
+  +durum : number
+  +bagla(gozlemci: Gozlemci): void
+  +ayir(gozlemci: Gozlemci): void
+  +bilgilendir(): void
+}
+
+class SomutNesne{
+  +durum : number
+  -gozlemciListesi : Gozlemci[]
+  +bagla(gozlemci: Gozlemci): void
+  +ayir(gozlemci: Gozlemci): void
+  +bilgilendir(): void
+  +durumDegistir(): void
+}
+
+interface Gozlemci{
+  +name : string
+  +guncelle(nesne: Nesne): void
+}
+
+class SomutGözlemciA{
+  +name : any
+  +guncelle(nesne: Nesne): void
+}
+
+class SomutGözlemciB{
+  +name : any
+  +guncelle(nesne: Nesne): void
+}
+
+Nesne <|.. SomutNesne
+Gozlemci <|.. SomutGözlemciA
+Gozlemci <|.. SomutGözlemciB
+
+Nesne <-- SomutGözlemciA
+Nesne <-- SomutGözlemciB
+
+SomutNesne --> Gozlemci

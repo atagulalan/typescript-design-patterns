@@ -1,0 +1,35 @@
+interface Yineleyici{
+  +mevcut(): T
+  +sonraki(): T
+  +anahtar(): number
+  +gecerli(): boolean
+  +geriSar(): void
+}
+
+interface Koleksiyoncu{
+  +alYineleyici(): Yineleyici<string>
+}
+
+class AlfabetikYineleyici{
+  -koleksiyon : KelimeKoleksiyonu
+  -pozisyon : number
+  -tersine : boolean
+  +geriSar()
+  +mevcut(): string
+  +anahtar(): number
+  +sonraki(): string
+  +gecerli(): boolean
+}
+
+class KelimeKoleksiyonu{
+  -veriler : string[]
+  +alVeriler(): string[]
+  +alVeriBoyutu(): number
+  +ekleVeri(veri: string): void
+  +alYineleyici(): Yineleyici<string>
+  +alTersineYineleyici(): Yineleyici<string>
+}
+
+AlfabetikYineleyici -> KelimeKoleksiyonu
+Yineleyici <|.. AlfabetikYineleyici
+Koleksiyoncu <|.. KelimeKoleksiyonu
