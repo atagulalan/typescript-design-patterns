@@ -1,0 +1,84 @@
+@startuml Smart Home System
+
+abstract class Area{
+  +children : Array<Component>
+  +add(children)
+  {abstract} +getChildren(): Array<string>
+  +getName()
+}
+
+abstract class Component{
+  +parent : Component
+  +name : string
+  +setParent(parent: Component)
+  +add(children: any): void
+  +getName(): string
+  +identify(): string
+}
+
+class House{
+  +getChildren(): Array<string>
+  +identify(): string
+}
+
+class Room{
+  +getChildren(): Array<string>
+  +identify(): string
+}
+
+class SmartFactory{
+  +createSmartObject(name, type?)
+}
+
+class SmartGeneric{
+  +handle(request: string): string
+}
+
+abstract class SmartHandler{
+  -nextHandler : IHandler
+  +setNext(handler: IHandler): IHandler
+  +handle(request: string): string
+}
+
+interface IHandler{
+  +setNext(handler: IHandler): IHandler
+  +handle(request: string): string
+}
+
+abstract class SmartObject{
+  +identify(): string
+  +getName(): string
+}
+
+class SmartLight{
+  +handle(request: string): string
+}
+
+class SmartTV{
+  +handle(request: string): string
+}
+
+
+Component <|-- Area
+Area <|--- House
+Area <|--- Room
+
+SmartObject <|-- SmartHandler
+
+Component <|-- SmartObject
+
+SmartHandler <|-- SmartLight
+SmartHandler <|-- SmartTV
+SmartHandler <|-- SmartGeneric
+
+SmartHandler <-- SmartHandler : successor
+
+IHandler <|-- SmartHandler
+
+SmartTV <-- SmartFactory : <produces>
+SmartLight <-- SmartFactory : <produces>
+SmartGeneric <-- SmartFactory : <produces>
+
+Component <-- Area
+
+@enduml

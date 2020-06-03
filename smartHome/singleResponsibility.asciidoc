@@ -1,0 +1,20 @@
+## Single Responsibility Principle
+
+Bir sınıf sadece bir şeyden sorumlu olmalıdır. Eğer bir sınıf birden fazla sorumluluk içeriyorsa, bu sınıfın birden fazla sınıfa bölünmesi gerekir. Aksi takdirde bir metotta yapılan değişiklik başka metodun değiştirilmesine sebep olur.
+
+Bir nesnenin çok fazla özelliği varsa veya bir nesne çok fazla metodu olan bir nesne ise single responsibility prensibine uymaz, ancak hangi niteliklerin ve yöntemlerin bir sınıfın parçası olması ya da olmaması gerektiğine karar vermek özneldir. Bu yüzden bunu anlayabilmeniz için bazı kurallara dikkat etmelisiniz. 
+
+Burada aşağıdaki açıklamalara bakarak bu prensibe uyup uymadığımızı anlayabilirsiniz:
+
+* Sınıfı adlandırmak ne kadar kolay? Bir sınıfı adlandırmak zorsa, muhtemelen çok fazla şey yapıyor demektir. Basitleştirin.
+* Sınıfta kaç tane genel metot var? 7 +/- 2 metot iyidir. Sınıf bundan daha fazlasına sahipse, birkaç sınıfa bölebilirsiniz.
+* Sınıf karmaşık bir iç yapıya sahipse, muhtemelen iç kısımları daha küçük sınıflara paketlenecek şekilde yeniden düzenlemelisiniz.
+* Ve en kolay kural: Sınıf ne kadar büyük? Birkaç yüz satırdan daha uzun tek bir sınıf içeren bir dosyanız varsa, muhtemelen bölmelisiniz.
+
+Seçenekleri analiz etmek için biraz zaman harcarsak, sınıflarımızın tasarımını geliştirmenin bir yolunu bulabiliriz.
+
+Bir sınıfı tek bir sorumluluğa atamanın önemli olmasının nedeni, sınıfı daha sağlam hale getirmesidir. Eğer kod sürekli olarak değiştirilecekse, kodun kararsız hale gelme ve sonunda bozulmaya yol açma şansı vardır.
+
+Son olarak Steve Fenton'dan bir alıntı yaparak bu özelliği özetleyebiliriz:
+
+> Sınıflarımızı tasarlarken, ilgili özellikleri bir araya getirmeyi hedeflemeliyiz ve farklı özellikleri ayırmaya çalışmalıyız.
